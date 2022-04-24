@@ -33,7 +33,7 @@ class ViewController: UIViewController {
         
         api.randomDog { imageURL in
             guard let url = URL(string: imageURL) else {
-                print("frick")
+                print("Could not get imageURL")
                 return
             }
             

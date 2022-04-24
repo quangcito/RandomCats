@@ -19,11 +19,9 @@ class RandomDogAPI {
     func randomDog(callback: @escaping (String) -> ()) {
         
         guard let url = URL(string: "https://dog.ceo/api/breeds/image/random") else {
-            print("there was a problem getting the url")
+            print("There was a problem getting the api url")
             return
         }
-        
-        
         
         let datatask = urlSession.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -31,14 +29,14 @@ class RandomDogAPI {
             }
             
             guard let data = data else {
-                print("there was a problem getting data")
+                print("There was a problem getting data")
                 return
             }
             
             let randomDog = try? JSONDecoder().decode(RandomDogDataModel.self, from: data)
             
             guard let imageURL = randomDog?.message else {
-                print("There was a problem getting the dog image")
+                print("There was a problem getting the dog image url")
                 return
             }
             
