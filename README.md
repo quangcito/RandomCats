@@ -1,2 +1,4 @@
 # RandomDogs
-a very simple storyboard app that gets random images of dogs
+a very simple iOS storyboard app that gets random images of dogs
+
+[uses this dog api](https://dog.ceo/dog-api/)
