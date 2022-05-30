@@ -5,6 +5,7 @@
 //  Created by Spud on 4/23/22.
 //
 
+
 import Foundation
 
 class RandomDogAPI {
@@ -18,10 +19,16 @@ class RandomDogAPI {
     
     func randomDog(callback: @escaping (String) -> ()) {
         
-        guard let url = URL(string: "https://dog.ceo/api/breeds/image/random") else {
+        guard let url = URL(string: "https://api.thecatapi.com/v1/images/search?format=json") else {
             print("There was a problem getting the api url")
             return
         }
+        
+        
+//        guard let url = URL(string: "https://dog.ceo/api/breeds/image/random") else {
+//            print("There was a problem getting the api url")
+//            return
+//        }
         
         let datatask = urlSession.dataTask(with: url) { data, response, error in
             if let error = error {
@@ -33,14 +40,21 @@ class RandomDogAPI {
                 return
             }
             
-            let randomDog = try? JSONDecoder().decode(RandomDogDataModel.self, from: data)
+            let rootData = try? JSONDecoder().decode(RandomDogRootDataModel.self, from: data)
             
-            guard let imageURL = randomDog?.message else {
-                print("There was a problem getting the dog image url")
+            guard let randomDogData = rootData?.all else {
+                print("There was a problem getting the dog data")
                 return
             }
+                    
+//            guard let imageURL = randomDogData.url else {
+//                print("There was a problem getting the dog image data")
+//                return
+//            }
             
-            callback(imageURL)
+            let imageURL = randomDogData.first?.url
+            
+            callback(imageURL!)
         }
         
         datatask.resume()

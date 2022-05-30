@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RandomDogDataModel: Decodable {
-    let message: String
-    let status: String
+class RandomDogDataModel: Decodable {
+    let id: String
+    let url: String
 }
