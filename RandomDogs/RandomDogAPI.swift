@@ -40,21 +40,20 @@ class RandomDogAPI {
                 return
             }
             
-            let rootData = try? JSONDecoder().decode(RandomDogRootDataModel.self, from: data)
+            let catInfoList = try? JSONDecoder().decode([CatInfoDataModel].self, from: data)
             
-            guard let randomDogData = rootData?.all else {
+            // Getting the first result in an array
+            guard let randomCatData = catInfoList?.first else {
                 print("There was a problem getting the dog data")
                 return
             }
                     
-//            guard let imageURL = randomDogData.url else {
-//                print("There was a problem getting the dog image data")
-//                return
-//            }
+            guard let imageURL = randomCatData.url else {
+                print("There was a problem getting the dog image data")
+                return
+            }
             
-            let imageURL = randomDogData.first?.url
-            
-            callback(imageURL!)
+            callback(imageURL)
         }
         
         datatask.resume()
